@@ -77,5 +77,5 @@ def calculate_moon_diameter_and_circumference(moons):
 
 def calculate_volume(diameter):
     radius = diameter / 2
-    volume = (4/3) * 3.14159265359 * (radius ** 3)
+    volume = (4/3) * math.pi * (radius ** 3)
     return volume
