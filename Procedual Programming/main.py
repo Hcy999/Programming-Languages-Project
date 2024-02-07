@@ -38,8 +38,8 @@ def print_planet_info():
         orbital_period = data['OrbitalPeriod']
         diameter = diameter_and_circumference[i]['Diameter']
         circumference = diameter_and_circumference[i]['Circumference']
-        moons = planets[i].get('Moons', [])  # Get moons from the planet data
-        
+
+        moons = planets[i].get('Moons', [])  
         print(f"Planet: {planet_name}")
         print(f"Distance from sun: {distance_from_sun:.2f} au")
         print(f"Orbital period: {orbital_period:.2f} yr")
@@ -49,7 +49,6 @@ def print_planet_info():
         # Check if the planet has moons
         if moons:
             print("Moons:")
-            # Calculate moon diameter and circumference
             moon_data = calculate_moon_diameter_and_circumference(moons)
             for moon in moon_data:
                 moon_name = moon['Name']
@@ -65,13 +64,11 @@ def main():
     print_sun_info()
     print_planet_info()
 
-    # 计算太阳和行星的体积
     sun_diameter = SolarSystem.sun.get('Diameter')
     sun_volume = calculate_volume(sun_diameter)
     planets = SolarSystem.sun.get('Planets', [])
     total_planets_volume = sum([calculate_volume(planet.get('Diameter', 0)) for planet in planets])
 
-    # 判断是否所有行星的体积之和大于太阳的体积
     planets_can_fit_in_sun = total_planets_volume > sun_volume
     print('Sun volume: ', sun_volume)
     print('Total planets volume:', total_planets_volume)
