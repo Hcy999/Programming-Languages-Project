@@ -1,11 +1,11 @@
 import math
 
 def diameter_from_circumference(circumference):
-    """根据周长计算直径"""
+    
     return circumference / math.pi
 
 def circumference_from_diameter(diameter):
-    """根据直径计算周长"""
+    
     return diameter * math.pi
 
 def calculate_distances_and_periods(planets):
