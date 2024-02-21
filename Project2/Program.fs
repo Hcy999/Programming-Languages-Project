@@ -128,27 +128,31 @@ let testBinaryAddition num1 num2 =
             let complementBinary2 = addOne (NOT binaryList2)
             let result = addBinary complementBinary1 complementBinary2
             let truncatedResult = if List.length result > 8 then List.skip (List.length result - 8) result else result
-            printfn "%d -> %s" num1 (binaryToString binaryList1 false)
+            printfn "The Addition of %d and %d is:" num1 num2
+            printfn "%d -> %s" (absoluteValue num1) (binaryToString binaryList1 false)
             printfn "NOT -> %s" (binaryToString (NOT binaryList1) false)
             printfn "ADD 1 -> %s" (binaryToString complementBinary1 false)
-            printfn "%d -> %s" num2 (binaryToString binaryList2 false)
+            printfn "-%d -> %s" (absoluteValue num1) (binaryToString complementBinary1 false)
+            printfn "%d -> %s" (absoluteValue num2) (binaryToString binaryList2 false)
             printfn "NOT -> %s" (binaryToString (NOT binaryList2) false)
             printfn "ADD 1 -> %s" (binaryToString complementBinary2 false)
+            printfn "-%d -> %s" (absoluteValue num2) (binaryToString complementBinary2 false)
             printfn "********************"
             printfn "%d -> %s" (num1 + num2) (binaryToString truncatedResult true)
         elif num1 < 0 || num2 < 0 then
-            let complementBinary = if num1 < 0 then addOne (NOT binaryList1) else addOne (NOT binaryList2)
-            let nonComplementBinary = if num1 >= 0 then binaryList1 else binaryList2
-            let result = addBinary complementBinary nonComplementBinary
+            let positiveNum = if num1 > 0 then num1 else num2
+            let negativeNum = if num1 < 0 then num1 else num2
+            let positiveBinary = if num1 > 0 then binaryList1 else binaryList2
+            let negativeBinary = NOT (if num1 < 0 then binaryList1 else binaryList2)
+            let addOneResult = addOne negativeBinary
+            let result = addBinary positiveBinary addOneResult
             let truncatedResult = if List.length result > 8 then List.skip (List.length result - 8) result else result
-            printfn "%d -> %s" num1 (binaryToString (if num1 < 0 then complementBinary else binaryList1) false)
-            if num1 < 0 then
-                printfn "NOT -> %s" (binaryToString (NOT binaryList1) false)
-                printfn "ADD 1 -> %s" (binaryToString (addOne (NOT binaryList1)) false)
-            printfn "%d -> %s" num2 (binaryToString (if num2 < 0 then complementBinary else binaryList2) false)
-            if num2 < 0 then
-                printfn "NOT -> %s" (binaryToString (NOT binaryList2) false)
-                printfn "ADD 1 -> %s" (binaryToString (addOne (NOT binaryList2)) false)
+            printfn "The Addition of %d and %d is:" num1 num2
+            printfn "%d -> %s" positiveNum (binaryToString positiveBinary false)
+            printfn "%d -> %s" (absoluteValue negativeNum) (binaryToString (convertToBinary (absoluteValue negativeNum)) false)
+            printfn "NOT -> %s" (binaryToString negativeBinary false)
+            printfn "ADD 1 -> %s" (binaryToString addOneResult false)
+            printfn "-%d -> %s" (absoluteValue negativeNum) (binaryToString addOneResult true)
             printfn "********************"
             printfn "%d -> %s" (num1 + num2) (binaryToString truncatedResult true)
         else
@@ -242,8 +246,8 @@ let testLogicalOperationsNOT num =
 // Run Arithmetic Operations Test Part
 testDecimalToBinary 76 
 testBinaryToDecimal [0; 0; 1; 1; 0; 0; 0; 0] 
-testNegativeDecimalToBinary -90
-testBinaryAddition 7 -83
+testNegativeDecimalToBinary -83
+testBinaryAddition -7 -83
 //testBinarySubtraction 45 -6
 // Run Logical Operations Test Part
 //testLogicalOperationsAND 0x48 0x84
