@@ -1,6 +1,7 @@
 ﻿// Arithmetic operations Part
 // Converting non-negative decimal numbers to binary
 let convertToBinary (num: int) : int list =
+    if num < -128 || num > 127 then failwith "Number is out of the 8-bit signed integer range. Please typr number -128 to 127"
     let rec toBinary num =
         if num = 0 then [0] // Handle case when num is 0
         else if num < 0 then toBinary (-num) // Handle negative numbers
@@ -164,32 +165,33 @@ let testBinaryAddition num1 num2 =
             printfn "********************"
             printfn "%d -> %s" (num1 + num2) (binaryToString truncatedResult true)
     printfn ""
-
-
-
-
-
-
-
 // BinarySubtraction 
 let testBinarySubtraction num1 num2 =
-    let binaryList2 = convertToBinary num2
-    let notResult = NOT binaryList2
-    let addOneResult = addOne notResult
-    let binaryList1 = convertToBinary num1
-    let result = addBinary binaryList1 addOneResult
+    let binaryList1 = if num1 < 0 then addOne (NOT (convertToBinary (abs num1))) else convertToBinary num1
+    let binaryList2 = if num2 < 0 then convertToBinary (abs num2) else addOne (NOT (convertToBinary num2))
+    let result = addBinary binaryList1 binaryList2
     let finalResult = if List.length result > 8 then List.skip (List.length result - 8) result else result
+
     printfn "Subtraction:"
     printfn "The Subtraction of %d and %d is:" num1 num2
-    printfn "1. %d -> %s" num2 (binaryToString binaryList2 false) 
-    printfn "2. NOT -> %s" (binaryToString notResult false) 
-    printfn "3. ADD 1 -> %s" (binaryToString addOneResult false) 
+    if num1 < 0 then
+        printfn "1. %d -> %s" (abs num1) (binaryToString (convertToBinary (abs num1)) false) 
+        printfn "2. NOT -> %s" (binaryToString (NOT (convertToBinary (abs num1))) false) 
+        printfn "3. ADD 1 -> %s" (binaryToString (addOne (NOT (convertToBinary (abs num1)))) false)
+    // 特别处理 num2 为负数的情况
+    if num2 < 0 then
+        printfn "%d -> %s" (abs num2) (binaryToString (convertToBinary (abs num2)) false) 
+    else
+        printfn "1. %d -> %s" num2 (binaryToString (convertToBinary (abs num2)) false) 
+        if num2 >= 0 then
+            printfn "2. NOT -> %s" (binaryToString (NOT (convertToBinary num2)) false) 
+            printfn "3. ADD 1 -> %s" (binaryToString (addOne (NOT (convertToBinary num2))) false)
     printfn "*********************"
-    printfn "4. %d -> %s" num1 (binaryToString binaryList1 false) 
-    printfn "5. -%d -> %s" num2 (binaryToString addOneResult true) 
-    printfn "*********************"
-    printfn "6. %d -> %s" (num1 - num2) (binaryToString finalResult true) 
+    printfn "%d -> %s" (num1 - num2) (binaryToString finalResult true) 
     printfn ""
+
+
+
 //
 //
 //
@@ -244,11 +246,11 @@ let testLogicalOperationsNOT num =
 
 
 // Run Arithmetic Operations Test Part
-testDecimalToBinary 76 
+testDecimalToBinary 51 
 testBinaryToDecimal [0; 0; 1; 1; 0; 0; 0; 0] 
-testNegativeDecimalToBinary -83
-testBinaryAddition -7 -83
-//testBinarySubtraction 45 -6
+testNegativeDecimalToBinary -53
+testBinaryAddition 7 -8
+testBinarySubtraction 45 8
 // Run Logical Operations Test Part
 //testLogicalOperationsAND 0x48 0x84
 //testLogicalOperationsOR 0x48 0x84
