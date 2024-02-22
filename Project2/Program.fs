@@ -252,7 +252,7 @@ testNegativeDecimalToBinary -53
 testBinaryAddition 7 -8
 testBinarySubtraction 45 8
 // Run Logical Operations Test Part
-//testLogicalOperationsAND 0x48 0x84
-//testLogicalOperationsOR 0x48 0x84
-//testLogicalOperationsXOR 0xA5 0xF1
-//testLogicalOperationsNOT 0xF1
+testLogicalOperationsAND 0x48 0x84
+testLogicalOperationsOR 0x48 0x84
+testLogicalOperationsXOR 0xA5 0xF1
+testLogicalOperationsNOT 0xF1
