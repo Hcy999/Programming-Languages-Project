@@ -120,6 +120,7 @@ let testNegativeDecimalToBinary num =
     printfn "3. ADD 1 -> %A" addOneResult
     printfn "4. Check %d + (%d) = 0? %A" num (-num) checkZeroSum
     printfn ""
+// BinaryAddition   
 let testBinaryAddition num1 num2 =
     let binaryList1 = convertToBinary (absoluteValue num1)
     let binaryList2 = convertToBinary (absoluteValue num2)
@@ -178,7 +179,6 @@ let testBinarySubtraction num1 num2 =
         printfn "1. %d -> %s" (abs num1) (binaryToString (convertToBinary (abs num1)) false) 
         printfn "2. NOT -> %s" (binaryToString (NOT (convertToBinary (abs num1))) false) 
         printfn "3. ADD 1 -> %s" (binaryToString (addOne (NOT (convertToBinary (abs num1)))) false)
-    // 特别处理 num2 为负数的情况
     if num2 < 0 then
         printfn "%d -> %s" (abs num2) (binaryToString (convertToBinary (abs num2)) false) 
     else
@@ -189,13 +189,6 @@ let testBinarySubtraction num1 num2 =
     printfn "*********************"
     printfn "%d -> %s" (num1 - num2) (binaryToString finalResult true) 
     printfn ""
-
-
-
-//
-//
-//
-
 //
 //
 //
