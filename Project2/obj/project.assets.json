@@ -108,25 +108,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\m5689\\.nuget\\packages\\": {}
+    "/Users/chenyu/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\m5689\\OneDrive\\桌面\\Chenyu Hao\\FrodHam\\2024 Spring\\Wednesday\\5.30\\Programming-Languages-Project\\Project2\\Project2.fsproj",
+      "projectUniqueName": "/Users/chenyu/Desktop/Spring 2024/Wednesday 5.30/Programming-Languages-Project/Project2/Project2.fsproj",
       "projectName": "Project2",
-      "projectPath": "C:\\Users\\m5689\\OneDrive\\桌面\\Chenyu Hao\\FrodHam\\2024 Spring\\Wednesday\\5.30\\Programming-Languages-Project\\Project2\\Project2.fsproj",
-      "packagesPath": "C:\\Users\\m5689\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\m5689\\OneDrive\\桌面\\Chenyu Hao\\FrodHam\\2024 Spring\\Wednesday\\5.30\\Programming-Languages-Project\\Project2\\obj\\",
+      "projectPath": "/Users/chenyu/Desktop/Spring 2024/Wednesday 5.30/Programming-Languages-Project/Project2/Project2.fsproj",
+      "packagesPath": "/Users/chenyu/.nuget/packages/",
+      "outputPath": "/Users/chenyu/Desktop/Spring 2024/Wednesday 5.30/Programming-Languages-Project/Project2/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\m5689\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/chenyu/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files\\dotnet\\sdk\\8.0.201\\FSharp\\library-packs": {},
+        "/usr/local/share/dotnet/sdk/8.0.201/FSharp/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -168,7 +168,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
