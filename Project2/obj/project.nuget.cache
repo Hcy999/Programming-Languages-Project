@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "gHZHfb3aVwnEmorDpmknmoNICh6d6Q/Tssdg+OyGtrbe3d4rVcWoI8Opm8yyoLn1zDBQ5g2dgeh+KDj6p/afVw==",
+  "dgSpecHash": "pOrubFl7pFnIDaz/8N+J/i0aKBIOYuaAXU9OHitfOvIJ5UJQfPSQYraEI2UC2+K2MXx0Q915MHKwXV4pJrARsA==",
   "success": true,
-  "projectFilePath": "/Users/chenyu/Desktop/Spring 2024/Wednesday 5.30/Programming-Languages-Project/Project2/Project2.fsproj",
+  "projectFilePath": "C:\\Users\\m5689\\OneDrive\\桌面\\Chenyu Hao\\FrodHam\\2024 Spring\\Wednesday\\5.30\\Programming-Languages-Project\\Project2\\Project2.fsproj",
   "expectedPackageFiles": [
-    "/Users/chenyu/.nuget/packages/fsharp.core/8.0.200/fsharp.core.8.0.200.nupkg.sha512"
+    "C:\\Users\\m5689\\.nuget\\packages\\fsharp.core\\8.0.200\\fsharp.core.8.0.200.nupkg.sha512"
   ],
   "logs": []
 }
