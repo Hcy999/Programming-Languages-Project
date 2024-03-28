@@ -7,7 +7,8 @@ flight(2134, ord, sfo, 0930, 1345).
 flight(954, phx, dfw, 1655, 1800).
 flight(1176, sfo, lax, 1430, 1545).
 flight(205, lax, lga, 1630, 2210).
-
+flight(111, lga, bos, 0645, 0745).
+flight(222, bos, ewr, 0750, 0845).
 
 % Where does the flight from PHX go?
 destination_from_phx(Destination) :- flight(_, phx, Destination, _, _).
@@ -30,24 +31,31 @@ arrival_times_to_ord(ArrivalTime) :- flight(_, _, ord, _, ArrivalTime).
 
 
 % What are all the ways to get from LGA to LAX?
-direct_route_lga_lax(lga, lax, FlightNumber, DepartureTime, ArrivalTime) :-
-    flight(FlightNumber, lga, lax, DepartureTime, ArrivalTime).
+% assuming the transfer takes at least 30 minutes
+can_transfer(ArrivalTime, DepartureTime) :-
+    TransferTime is ArrivalTime + 30,
+    TransferTime =< DepartureTime.
 
-connection_route_lga_lax(FlightNumber1, FlightNumber2, FlightNumber3, DepartureTime1, ArrivalTime3) :-
-    flight(FlightNumber1, lga, ord, DepartureTime1, ArrivalTime1),
-    flight(FlightNumber2, ord, sfo, DepartureTime2, ArrivalTime2),
-    flight(FlightNumber3, sfo, lax, DepartureTime3, ArrivalTime3),
-    ArrivalTime1 < DepartureTime2,
-    ArrivalTime2 < DepartureTime3.
-
-
-route_lga_lax(Route, DepartureTime, ArrivalTime) :-
-    direct_route_lga_lax(lga, lax, FlightNumber, DepartureTime, ArrivalTime),
-    Route = [FlightNumber],
-    writeln('Direct flight:').
-
-route_lga_lax(Route, DepartureTime, ArrivalTime) :-
-    connection_route_lga_lax(FlightNumber1, FlightNumber2, FlightNumber3, DepartureTime, ArrivalTime),
-    Route = [FlightNumber1, FlightNumber2, FlightNumber3],
-    writeln('Connection flight:').
-
+% Check direct and connecting flights
+find_route(Origin, Destination, Route) :-
+    (   flight(FlightNumber, Origin, Destination, Departure, Arrival),
+        Route = [[FlightNumber, Departure, Arrival]]
+    ;   flight(Flight1, Origin, Transfer, Departure1, Arrival1),
+        flight(Flight3, Transfer, Destination, Departure3, Arrival3),
+        Origin \= Destination,
+        Transfer \= Destination,
+        can_transfer(Arrival1, Departure3),
+        Route = [[Flight1, Departure1, Arrival1], [Flight3, Departure3, Arrival3]],
+        \+ member(Transfer, [Origin, Destination])
+    ;   flight(Flight1, Origin, Transfer1, Departure1, Arrival1),
+        flight(Flight2, Transfer1, Transfer2, Departure2, Arrival2),
+        flight(Flight3, Transfer2, Destination, Departure3, Arrival3),
+        Origin \= Destination,
+        Transfer1 \= Destination,
+        Transfer2 \= Destination,
+        can_transfer(Arrival1, Departure2),
+        can_transfer(Arrival2, Departure3),
+        Route = [[Flight1, Departure1, Arrival1], [Flight2, Departure2, Arrival2], [Flight3, Departure3, Arrival3]],
+        \+ member(Transfer1, [Origin, Destination]),
+        \+ member(Transfer2, [Origin, Destination, Transfer1])
+    ).
