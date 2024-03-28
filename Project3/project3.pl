@@ -40,6 +40,7 @@ can_transfer(ArrivalTime, DepartureTime) :-
 find_route(Origin, Destination, Route) :-
     (   flight(FlightNumber, Origin, Destination, Departure, Arrival),
         Route = [[FlightNumber, Departure, Arrival]]
+        % one transfer
     ;   flight(Flight1, Origin, Transfer, Departure1, Arrival1),
         flight(Flight3, Transfer, Destination, Departure3, Arrival3),
         Origin \= Destination,
@@ -47,6 +48,7 @@ find_route(Origin, Destination, Route) :-
         can_transfer(Arrival1, Departure3),
         Route = [[Flight1, Departure1, Arrival1], [Flight3, Departure3, Arrival3]],
         \+ member(Transfer, [Origin, Destination])
+        % two transfer
     ;   flight(Flight1, Origin, Transfer1, Departure1, Arrival1),
         flight(Flight2, Transfer1, Transfer2, Departure2, Arrival2),
         flight(Flight3, Transfer2, Destination, Departure3, Arrival3),
@@ -58,4 +60,17 @@ find_route(Origin, Destination, Route) :-
         Route = [[Flight1, Departure1, Arrival1], [Flight2, Departure2, Arrival2], [Flight3, Departure3, Arrival3]],
         \+ member(Transfer1, [Origin, Destination]),
         \+ member(Transfer2, [Origin, Destination, Transfer1])
+        % three transfer
+    ;   flight(Flight1, Origin, Transfer1, Departure1, Arrival1),
+        flight(Flight2, Transfer1, Transfer2, Departure2, Arrival2),
+        flight(Flight3, Transfer2, Transfer3, Departure3, Arrival3),
+        flight(Flight4, Transfer3, Destination, Departure4, Arrival4),
+        Origin \= Destination,
+        Transfer1 \= Destination, Transfer2 \= Destination, Transfer3 \= Destination,
+        Transfer1 \= Transfer2, Transfer2 \= Transfer3, Transfer1 \= Transfer3,
+        can_transfer(Arrival1, Departure2), can_transfer(Arrival2, Departure3), can_transfer(Arrival3, Departure4),
+        Route = [[Flight1, Departure1, Arrival1], [Flight2, Departure2, Arrival2], [Flight3, Departure3, Arrival3], [Flight4, Departure4, Arrival4]],
+        \+ member(Transfer1, [Origin, Destination]),
+        \+ member(Transfer2, [Origin, Destination, Transfer1]),
+        \+ member(Transfer3, [Origin, Destination, Transfer1, Transfer2])
     ).
